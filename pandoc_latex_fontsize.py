@@ -3,19 +3,12 @@
 """
 Pandoc filter for changing font size in LaTeX
 """
-from __future__ import print_function
-    
 
 from pandocfilters import RawInline, RawBlock, Span, Code, CodeBlock, stringify, toJSONFilters
 
-import sys
-def warning(*objs):
-    print("WARNING: ", *objs, file=sys.stderr)
-
-
 def fontsize(key, value, format, meta):
     # Is it a Span and the right format?
-    if key in ['Span', 'Div', 'Code', 'CodeBlock']: # and format == 'latex':
+    if key in ['Span', 'Div', 'Code', 'CodeBlock'] and format == 'latex':
 
         # Get the attributes
         [[id, classes, properties], content] = value

@@ -37,16 +37,21 @@ def test_fontsize():
                                 }
                             ]
                         },
+                        'size': {
+                            't': 'MetaInlines',
+                            'c': [
+                                {
+                                    't': 'Str',
+                                    'c': 'LARGE'
+                                }
+                            ]
+                        }
                     }
                 }
             ]
         }
     }
 
-
     dest = pandoc_latex_fontsize.fontsize(src['t'], src['c'], 'latex', meta)
-    assert isinstance(dest, list)
-    assert len(dest) == 3
-    assert dest[0]['t'] == 'RawInline'
-    assert dest[2]['t'] == 'RawInline'
+    assert src['c'][1][0]['c'][0] == 'tex'
 
