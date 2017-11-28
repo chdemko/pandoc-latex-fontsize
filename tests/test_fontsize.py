@@ -27,7 +27,7 @@ def test_span():
 
 def test_div():
     elem = Div(classes=['class1', 'class2'])
-    doc = Doc( elem, metadata=metadata(), format='latex', api_version=(1, 17, 2))
+    doc = Doc(elem, metadata=metadata(), format='latex', api_version=(1, 17, 2))
 
     pandoc_latex_fontsize.main(doc)
 
@@ -53,7 +53,7 @@ def test_code():
 
 def test_codeblock():
     elem = CodeBlock('', classes=['class1', 'class2'])
-    doc = Doc( elem, metadata=metadata(), format='latex', api_version=(1, 17, 2))
+    doc = Doc(elem, metadata=metadata(), format='latex', api_version=(1, 17, 2))
 
     pandoc_latex_fontsize.main(doc)
 
