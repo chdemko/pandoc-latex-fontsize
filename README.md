@@ -1,4 +1,4 @@
-# pandoc-latex-tip
+# pandoc-latex-fontsize
 [![Build Status](https://img.shields.io/travis/chdemko/pandoc-latex-fontsize.svg)](http://travis-ci.org/chdemko/pandoc-latex-fontsize)
 [![Coveralls](https://img.shields.io/coveralls/chdemko/pandoc-latex-fontsize.svg)](https://coveralls.io/github/chdemko/pandoc-latex-fontsize)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/chdemko/pandoc-latex-fontsize.svg)](https://scrutinizer-ci.com/g/chdemko/pandoc-latex-fontsize/)
