@@ -21,7 +21,7 @@ def fontsize(elem, doc):
                 return add_latex(elem, definition['latex'])
 
 def add_latex(elem, latex):
-    # Is it a span?
+    # Is it a Span?
     if isinstance(elem, Span):
         elem.content.insert(0, RawInline(latex, 'tex'))
 
