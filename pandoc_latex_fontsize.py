@@ -4,82 +4,69 @@
 Pandoc filter for changing font size in LaTeX
 """
 
-from pandocfilters import RawInline, RawBlock, Span, Code, CodeBlock, stringify, toJSONFilters
+from panflute import *
 
-def fontsize(key, value, format, meta):
-    # Is it a Span and the right format?
-    if key in ['Span', 'Div', 'Code', 'CodeBlock'] and format == 'latex':
+def fontsize(elem, doc):
+    # Is it in the right format and is it a Span, Div, Code or CodeBlock?
+    if doc.format == 'latex' and elem.tag in ['Span', 'Div', 'Code', 'CodeBlock']:
 
-        # Get the attributes
-        [[id, classes, properties], content] = value
-
-        # Use the Span classes as a set
-        currentClasses = set(classes)
+        # Get the classes
+        classes = set(elem.classes)
 
         # Loop on all fontsize definition
-        for elt in getDefined(meta):
+        for definition in doc.defined:
 
             # Is the classes correct?
-            if currentClasses >= elt['classes']:
+            if classes >= definition['classes']:
 
-                # Prepend a tex block for inserting fontsize
-                if key == 'Span':
-                    content.insert(0, RawInline('tex', elt['latex']))
-                elif key == 'Div':
-                    content.insert(0, RawBlock('tex', '{' + elt['latex']))
-                    content.append(RawBlock('tex', '}'))
-                elif key == 'CodeBlock':
-                    return [
-                        RawBlock('tex', '{' + elt['latex']),
-                        CodeBlock([id, classes, properties], content),
-                        RawBlock('tex', '}')
-                    ]
-                else: # Code case
-                    return [
-                        RawInline('tex', '{' + elt['latex']),
-                        Code([id, classes, properties], content),
-                        RawInline('tex', '}')
-                    ]
-                    
+                # Is it a span?
+                if isinstance(elem, Span):
+                    elem.content.insert(0, RawInline(definition['latex'], 'tex'))
 
-def getDefined(meta):
-    if not hasattr(getDefined, 'value'):
-        # Prepare the values
-        getDefined.value = []
+                # Is it a Div?
+                elif isinstance(elem, Div):
+                    elem.content.insert(0, RawBlock('{' + definition['latex'], 'tex'))
+                    elem.content.append(RawBlock('}', 'tex'))
 
-        # Get the meta data
-        if 'pandoc-latex-fontsize' in meta and meta['pandoc-latex-fontsize']['t'] == 'MetaList':
-            fontMeta = meta['pandoc-latex-fontsize']['c']
+                # Is it a Code?
+                elif isinstance(elem, Code):
+                    return [RawInline('{' + definition['latex'], 'tex'), elem, RawInline('}', 'tex')]
 
-            # Loop on all definitions
-            for definition in fontMeta:
+                # Is it a CodeBlock?
+                elif isinstance(elem, CodeBlock):
+                    return [RawBlock('{' + definition['latex'], 'tex'), elem, RawBlock('}', 'tex')]
 
-                # Verify the definition type
-                if definition['t'] == 'MetaMap':
+def prepare(doc):
+    # Prepare the definitions
+    doc.defined = []
 
-                     # Get the classes
-                    classes = []
-                    if 'classes' in definition['c'] and definition['c']['classes']['t'] == 'MetaList':
-                        for klass in definition['c']['classes']['c']:
-                            classes.append(stringify(klass))
+    # Get the meta data
+    meta = doc.get_metadata('pandoc-latex-fontsize')
+
+    if isinstance(meta, list):
+
+        # Loop on all definitions
+        for definition in meta:
+
+            # Verify the definition type
+            if isinstance(definition, dict):
+
+                if 'classes' in definition and isinstance(definition['classes'], list):
+
+                    # Get the classes
+                    classes = definition['classes']
 
                     # Get the size
-                    size = 'normalsize'
+                    if 'size' in definition and definition['size'] in ['Huge', 'huge', 'LARGE', 'Large', 'large', 'normalsize', 'small', 'footnotesize', 'scriptsize', 'tiny']:
+                        size = definition['size']
+                    else:
+                        size = 'normalsize'
 
-                    # Test the size definition
-                    if 'size' in definition['c'] and definition['c']['size']['t'] == 'MetaInlines':
-                        newsize = stringify(definition['c']['size']['c'])
-                        if newsize in ['Huge', 'huge', 'LARGE', 'Large', 'large', 'normalsize', 'small', 'footnotesize', 'scriptsize', 'tiny']:
-                            size = newsize
+                    # Add a definition
+                    doc.defined.append({'classes' : set(classes), 'latex': '\\' + size + ' '})
 
-                    # Add a definition if correct
-                    if bool(classes) and bool(size):
-                        getDefined.value.append({'classes' : set(classes), 'latex': '\\' + size + ' '})
-
-    return getDefined.value
-
-def main():
-    toJSONFilters([fontsize])
+def main(doc = None):
+    run_filter(fontsize, prepare = prepare, doc = doc)
 
 if __name__ == '__main__':
     main()
