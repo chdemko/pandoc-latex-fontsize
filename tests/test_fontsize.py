@@ -34,7 +34,7 @@ def test_div():
     assert isinstance(elem.content[0], RawBlock)
     assert elem.content[0].format == 'tex'
     assert elem.content[0].text == '{\\LARGE '
-    assert isinstance(elem.content[0], RawBlock)
+    assert isinstance(elem.content[1], RawBlock)
     assert elem.content[1].format == 'tex'
     assert elem.content[1].text == '}'
 
