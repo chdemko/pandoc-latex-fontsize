@@ -52,18 +52,20 @@ def prepare(doc):
 
             # Verify the definition
             if isinstance(definition, dict) and 'classes' in definition and isinstance(definition['classes'], list):
+                add_definition(doc.defined, definition)
 
-                # Get the classes
-                classes = definition['classes']
+def add_definition(defined, definition):
+    # Get the classes
+    classes = definition['classes']
 
-                # Get the size
-                if 'size' in definition and definition['size'] in ['Huge', 'huge', 'LARGE', 'Large', 'large', 'normalsize', 'small', 'footnotesize', 'scriptsize', 'tiny']:
-                    size = definition['size']
-                else:
-                    size = 'normalsize'
+    # Get the size
+    if 'size' in definition and definition['size'] in ['Huge', 'huge', 'LARGE', 'Large', 'large', 'normalsize', 'small', 'footnotesize', 'scriptsize', 'tiny']:
+        size = definition['size']
+    else:
+        size = 'normalsize'
 
-                # Add a definition
-                doc.defined.append({'classes' : set(classes), 'latex': '\\' + size + ' '})
+    # Add a definition
+    defined.append({'classes' : set(classes), 'latex': '\\' + size + ' '})
 
 def main(doc = None):
     run_filter(fontsize, prepare = prepare, doc = doc)
