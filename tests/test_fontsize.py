@@ -15,6 +15,16 @@ def metadata():
         )
     }
 
+def opening(value, type):
+    assert isinstance(value, type)
+    assert value.format == 'tex'
+    assert value.text == '{\\LARGE '
+
+def closing(value, type):
+    assert isinstance(value, type)
+    assert value.format == 'tex'
+    assert value.text == '}'
+
 def test_span():
     elem = Span(classes=['class1', 'class2'])
     doc = Doc(Para(elem), metadata=metadata(), format='latex', api_version=(1, 17, 2))
@@ -31,12 +41,8 @@ def test_div():
 
     pandoc_latex_fontsize.main(doc)
 
-    assert isinstance(elem.content[0], RawBlock)
-    assert elem.content[0].format == 'tex'
-    assert elem.content[0].text == '{\\LARGE '
-    assert isinstance(elem.content[1], RawBlock)
-    assert elem.content[1].format == 'tex'
-    assert elem.content[1].text == '}'
+    opening(elem.content[0], RawBlock)
+    closing(elem.content[1], RawBlock)
 
 def test_code():
     elem = Code('', classes=['class1', 'class2'])
@@ -44,12 +50,8 @@ def test_code():
 
     pandoc_latex_fontsize.main(doc)
 
-    assert isinstance(doc.content[0].content[0], RawInline)
-    assert doc.content[0].content[0].format == 'tex'
-    assert doc.content[0].content[0].text == '{\\LARGE '
-    assert isinstance(doc.content[0].content[2], RawInline)
-    assert doc.content[0].content[2].format == 'tex'
-    assert doc.content[0].content[2].text == '}'
+    opening(doc.content[0].content[0], RawInline)
+    closing(doc.content[0].content[2], RawInline)
 
 def test_codeblock():
     elem = CodeBlock('', classes=['class1', 'class2'])
@@ -57,10 +59,6 @@ def test_codeblock():
 
     pandoc_latex_fontsize.main(doc)
 
-    assert isinstance(doc.content[0], RawBlock)
-    assert doc.content[0].format == 'tex'
-    assert doc.content[0].text == '{\\LARGE '
-    assert isinstance(doc.content[2], RawBlock)
-    assert doc.content[2].format == 'tex'
-    assert doc.content[2].text == '}'
+    opening(doc.content[0], RawBlock)
+    closing(doc.content[2], RawBlock)
 
