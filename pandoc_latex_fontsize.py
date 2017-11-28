@@ -18,23 +18,25 @@ def fontsize(elem, doc):
 
             # Is the classes correct?
             if classes >= definition['classes']:
+                return add_latex(elem, definition)
 
-                # Is it a span?
-                if isinstance(elem, Span):
-                    elem.content.insert(0, RawInline(definition['latex'], 'tex'))
+def add_latex(elem, definition):
+    # Is it a span?
+    if isinstance(elem, Span):
+        elem.content.insert(0, RawInline(definition['latex'], 'tex'))
 
-                # Is it a Div?
-                elif isinstance(elem, Div):
-                    elem.content.insert(0, RawBlock('{' + definition['latex'], 'tex'))
-                    elem.content.append(RawBlock('}', 'tex'))
+    # Is it a Div?
+    elif isinstance(elem, Div):
+        elem.content.insert(0, RawBlock('{' + definition['latex'], 'tex'))
+        elem.content.append(RawBlock('}', 'tex'))
 
-                # Is it a Code?
-                elif isinstance(elem, Code):
-                    return [RawInline('{' + definition['latex'], 'tex'), elem, RawInline('}', 'tex')]
+    # Is it a Code?
+    elif isinstance(elem, Code):
+        return [RawInline('{' + definition['latex'], 'tex'), elem, RawInline('}', 'tex')]
 
-                # Is it a CodeBlock?
-                elif isinstance(elem, CodeBlock):
-                    return [RawBlock('{' + definition['latex'], 'tex'), elem, RawBlock('}', 'tex')]
+    # Is it a CodeBlock?
+    elif isinstance(elem, CodeBlock):
+        return [RawBlock('{' + definition['latex'], 'tex'), elem, RawBlock('}', 'tex')]
 
 def prepare(doc):
     # Prepare the definitions
