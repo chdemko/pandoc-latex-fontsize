@@ -6,19 +6,32 @@ Pandoc filter for changing font size in LaTeX
 
 from panflute import *
 
+def latex_code(size):
+    return '\\' + size + ' '
+
+def get_correct_size(size):
+    if size in ['Huge', 'huge', 'LARGE', 'Large', 'large', 'normalsize', 'small', 'footnotesize', 'scriptsize', 'tiny']:
+        return size
+    else:
+        return 'normalsize'
+
 def fontsize(elem, doc):
     # Is it in the right format and is it a Span, Div, Code or CodeBlock?
     if doc.format == 'latex' and elem.tag in ['Span', 'Div', 'Code', 'CodeBlock']:
 
-        # Get the classes
-        classes = set(elem.classes)
+        # Is there a latex-fontsize attribute?
+        if 'latex-fontsize' in elem.attributes:
+            return add_latex(elem, latex_code(get_correct_size(elem.attributes['latex-fontsize'])))
+        else:
+            # Get the classes
+            classes = set(elem.classes)
 
-        # Loop on all fontsize definition
-        for definition in doc.defined:
+            # Loop on all fontsize definition
+            for definition in doc.defined:
 
-            # Is the classes correct?
-            if classes >= definition['classes']:
-                return add_latex(elem, definition['latex'])
+                # Are the classes correct?
+                if classes >= definition['classes']:
+                    return add_latex(elem, definition['latex'])
 
 def add_latex(elem, latex):
     # Is it a Span?
@@ -59,13 +72,13 @@ def add_definition(defined, definition):
     classes = definition['classes']
 
     # Get the size
-    if 'size' in definition and definition['size'] in ['Huge', 'huge', 'LARGE', 'Large', 'large', 'normalsize', 'small', 'footnotesize', 'scriptsize', 'tiny']:
-        size = definition['size']
+    if 'size' in definition:
+        size = get_correct_size(definition['size'])
     else:
         size = 'normalsize'
 
     # Add a definition
-    defined.append({'classes' : set(classes), 'latex': '\\' + size + ' '})
+    defined.append({'classes' : set(classes), 'latex': latex_code(size)})
 
 def main(doc = None):
     run_filter(fontsize, prepare = prepare, doc = doc)
