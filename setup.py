@@ -102,7 +102,7 @@ setup(
     install_requires=[
         'panflute>=1.10',
         'pypandoc>=1.4'
-        ],
+    ],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
