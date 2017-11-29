@@ -28,7 +28,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.2',
+    version='0.1.0',
 
     # The project's description
     description='A pandoc filter for changing font size in LaTeX',
@@ -49,7 +49,7 @@ setup(
     maintainer_email='chdemko@gmail.com',
 
     # Choose your license
-    license='CeCILL-B',
+    license='BSD-3-Clause',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -57,7 +57,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
 
         # Specify the OS
         'Operating System :: OS Independent',
