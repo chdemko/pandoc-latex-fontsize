@@ -45,7 +45,7 @@ To upgrade to the most recent release, use
 
 [python]: https://www.python.org
 [on Windows]: https://www.python.org/downloads/windows
-[PyPI]: https://pypi.python.org/pypi
+[PyPI]: https://pypi.org
 
 
 Getting Help
