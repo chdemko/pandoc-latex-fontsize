@@ -79,7 +79,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords=['pandoc', 'filters', 'latex', 'fontsize'],
+    keywords='pandoc filters latex fontsize',
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:
