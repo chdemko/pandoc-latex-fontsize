@@ -9,7 +9,7 @@
 [![Python version](https://img.shields.io/pypi/pyversions/pandoc-latex-fontsize.svg)](https://pypi.org/project/pandoc-latex-fontsize/)
 [![Development Status](https://img.shields.io/pypi/status/pandoc-latex-fontsize.svg)](https://pypi.org/project/pandoc-latex-fontsize/)
 
-*pandoc-latex-fontsize* is a [pandoc] filter for modifying font size to `Code`, `CodeBlock`, `Span`, and `Div` that have speficied classes.
+*pandoc-latex-fontsize* is a [pandoc] filter for modifying font size to `Code`, `CodeBlock`, `Span`, and `Div` that have speficied classes or `latex-fontsize` attribute.
 
 [pandoc]: http://pandoc.org/
 
