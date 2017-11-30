@@ -13,6 +13,7 @@ def get_correct_size(size):
     if size in ['Huge', 'huge', 'LARGE', 'Large', 'large', 'normalsize', 'small', 'footnotesize', 'scriptsize', 'tiny']:
         return size
     else:
+        debug('[WARNING] pandoc-latex-fontsize: ' + size + ' is not a correct LaTeX size; using normalsize')
         return 'normalsize'
 
 def fontsize(elem, doc):
@@ -75,6 +76,7 @@ def add_definition(defined, definition):
     if 'size' in definition:
         size = get_correct_size(definition['size'])
     else:
+        debug('[WARNING] pandoc-latex-fontsize: size is not defined; using normalsize')
         size = 'normalsize'
 
     # Add a definition
