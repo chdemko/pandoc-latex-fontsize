@@ -25,21 +25,21 @@ def closing(value, type):
     assert value.format == 'tex'
     assert value.text == '}'
 
-def span(elem, doc):
+def span(elem, doc, size):
     pandoc_latex_fontsize.main(doc)
     assert isinstance(elem.content[0], RawInline)
     assert elem.content[0].format == 'tex'
-    assert elem.content[0].text == '\\LARGE '
+    assert elem.content[0].text == '\\' + size + ' '
 
 def test_span_classes():
     elem = Span(classes=['class1', 'class2'])
     doc = Doc(Para(elem), metadata=metadata(), format='latex', api_version=(1, 17, 2))
-    span(elem, doc)
+    span(elem, doc, doc.get_metadata()['pandoc-latex-fontsize'][0]['size'])
 
 def test_span_attributes():
     elem = Span(attributes={'latex-fontsize': 'LARGE'})
     doc = Doc(Para(elem), format='latex', api_version=(1, 17, 2))
-    span(elem, doc)
+    span(elem, doc, 'LARGE')
 
 def div(elem, doc):
     pandoc_latex_fontsize.main(doc)
@@ -85,4 +85,32 @@ def test_codeblock_attributes():
     elem = CodeBlock('', attributes={'latex-fontsize': 'LARGE'})
     doc = Doc(elem, format='latex', api_version=(1, 17, 2))
     codeblock(elem, doc)
+
+def test_bad_size():
+    metadata = {
+        'pandoc-latex-fontsize': MetaList(
+            MetaMap(
+                size=MetaString('BADSIZE'),
+                classes=MetaList(MetaString('class1'), MetaString('class2'))
+            )
+        )
+    }
+    elem = Span(classes=['class1', 'class2'])
+    doc = Doc(Para(elem), metadata=metadata, format='latex', api_version=(1, 17, 2))
+    pandoc_latex_fontsize.main(doc)
+    assert isinstance(elem.content[0], RawInline)
+    assert elem.content[0].format == 'tex'
+    assert elem.content[0].text == '\\normalsize '
+
+def test_missing_size():
+    metadata = {
+        'pandoc-latex-fontsize': MetaList(
+            MetaMap(
+                classes=MetaList(MetaString('class1'), MetaString('class2'))
+            )
+        )
+    }
+    elem = Span(classes=['class1', 'class2'])
+    doc = Doc(Para(elem), metadata=metadata, format='latex', api_version=(1, 17, 2))
+    span(elem, doc, 'normalsize')
 
