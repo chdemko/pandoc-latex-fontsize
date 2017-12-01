@@ -51,7 +51,7 @@ To upgrade to the most recent release, use
 Getting Help
 ------------
 
-If you have any difficulties with pandoc-latex-fontsize, please feel welcome to [file an issue] on github so that we can help.
+If you have any difficulties with *pandoc-latex-fontsize*, please feel welcome to [file an issue] on github so that we can help.
 
 [file an issue]: https://github.com/chdemko/pandoc-latex-fontsize/issues
 
