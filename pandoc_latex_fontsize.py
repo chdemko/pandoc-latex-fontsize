@@ -16,24 +16,6 @@ def get_correct_size(size):
         debug('[WARNING] pandoc-latex-fontsize: ' + size + ' is not a correct LaTeX size; using normalsize')
         return 'normalsize'
 
-def fontsize(elem, doc):
-    # Is it in the right format and is it a Span, Div, Code or CodeBlock?
-    if doc.format == 'latex' and elem.tag in ['Span', 'Div', 'Code', 'CodeBlock']:
-
-        # Is there a latex-fontsize attribute?
-        if 'latex-fontsize' in elem.attributes:
-            return add_latex(elem, latex_code(get_correct_size(elem.attributes['latex-fontsize'])))
-        else:
-            # Get the classes
-            classes = set(elem.classes)
-
-            # Loop on all fontsize definition
-            for definition in doc.defined:
-
-                # Are the classes correct?
-                if classes >= definition['classes']:
-                    return add_latex(elem, definition['latex'])
-
 def add_latex(elem, latex):
     # Is it a Span?
     if isinstance(elem, Span):
@@ -51,6 +33,24 @@ def add_latex(elem, latex):
     # Is it a CodeBlock?
     elif isinstance(elem, CodeBlock):
         return [RawBlock('{' + latex, 'tex'), elem, RawBlock('}', 'tex')]
+
+def fontsize(elem, doc):
+    # Is it in the right format and is it a Span, Div, Code or CodeBlock?
+    if doc.format == 'latex' and elem.tag in ['Span', 'Div', 'Code', 'CodeBlock']:
+
+        # Is there a latex-fontsize attribute?
+        if 'latex-fontsize' in elem.attributes:
+            return add_latex(elem, latex_code(get_correct_size(elem.attributes['latex-fontsize'])))
+        else:
+            # Get the classes
+            classes = set(elem.classes)
+
+            # Loop on all fontsize definition
+            for definition in doc.defined:
+
+                # Are the classes correct?
+                if classes >= definition['classes']:
+                    return add_latex(elem, definition['latex'])
 
 def prepare(doc):
     # Prepare the definitions
