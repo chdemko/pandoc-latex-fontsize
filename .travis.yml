@@ -10,8 +10,6 @@ before_install:
 install:
   - pip install coveralls
 script:
-  - python setup.py build_ext -i
-  - python -m compileall -f .
   - coverage run --source=pandoc_latex_fontsize setup.py test
 after_success:
   - coveralls
