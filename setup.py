@@ -38,7 +38,7 @@ setup(
     url='https://github.com/chdemko/pandoc-latex-fontsize',
 
     # The project's download page
-    download_url = 'https://github.com/chdemko/pandoc-latex-fontsize/archive/0.3.0.zip',
+    download_url = 'https://github.com/chdemko/pandoc-latex-fontsize/archive/master.zip',
 
     # Author details
     author='Christophe Demko',
