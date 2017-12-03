@@ -28,7 +28,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.2.0',
+    version='0.3.0',
 
     # The project's description
     description='A pandoc filter for changing font size in LaTeX',
@@ -38,7 +38,7 @@ setup(
     url='https://github.com/chdemko/pandoc-latex-fontsize',
 
     # The project's download page
-    download_url = 'https://github.com/chdemko/pandoc-latex-fontsize/archive/master.zip',
+    download_url = 'https://github.com/chdemko/pandoc-latex-fontsize/archive/0.3.0.zip',
 
     # Author details
     author='Christophe Demko',
