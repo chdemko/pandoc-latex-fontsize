@@ -83,7 +83,7 @@ def add_definition(defined, definition):
     defined.append({'classes' : set(classes), 'latex': latex_code(size)})
 
 def main(doc = None):
-    run_filter(fontsize, prepare = prepare, doc = doc)
+    return run_filter(fontsize, prepare = prepare, doc = doc)
 
 if __name__ == '__main__':
     main()
