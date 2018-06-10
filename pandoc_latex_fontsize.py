@@ -36,7 +36,7 @@ def add_latex(elem, latex):
 
 def fontsize(elem, doc):
     # Is it in the right format and is it a Span, Div, Code or CodeBlock?
-    if doc.format == 'latex' and elem.tag in ['Span', 'Div', 'Code', 'CodeBlock']:
+    if doc.format in ['latex', 'beamer'] and elem.tag in ['Span', 'Div', 'Code', 'CodeBlock']:
 
         # Is there a latex-fontsize attribute?
         if 'latex-fontsize' in elem.attributes:
