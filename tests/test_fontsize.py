@@ -5,112 +5,111 @@ from panflute import *
 
 import pandoc_latex_fontsize
 
-def metadata():
-    return {
-        'pandoc-latex-fontsize': MetaList(
-            MetaMap(
-                size=MetaString('LARGE'),
-                classes=MetaList(MetaString('class1'), MetaString('class2'))
+
+class FontSizeTest(TestCase):
+    def metadata(self):
+        return {
+            "pandoc-latex-fontsize": MetaList(
+                MetaMap(
+                    size=MetaString("LARGE"),
+                    classes=MetaList(MetaString("class1"), MetaString("class2")),
+                )
             )
-        )
-    }
+        }
 
-def opening(value, type):
-    assert isinstance(value, type)
-    assert value.format == 'tex'
-    assert value.text == '{\\LARGE '
+    def opening(self, value, type):
+        self.assertIsInstance(value, type)
+        self.assertEqual(value.format, "tex")
+        self.assertEqual(value.text, "{\\LARGE ")
 
-def closing(value, type):
-    assert isinstance(value, type)
-    assert value.format == 'tex'
-    assert value.text == '}'
+    def closing(self, value, type):
+        self.assertIsInstance(value, type)
+        self.assertEqual(value.format, "tex")
+        self.assertEqual(value.text, "}")
 
-def span(elem, doc, size):
-    pandoc_latex_fontsize.main(doc)
-    assert isinstance(elem.content[0], RawInline)
-    assert elem.content[0].format == 'tex'
-    assert elem.content[0].text == '\\' + size + ' '
+    def span(self, elem, doc, size):
+        pandoc_latex_fontsize.main(doc)
+        self.assertIsInstance(elem.content[0], RawInline)
+        self.assertEqual(elem.content[0].format, "tex")
+        self.assertEqual(elem.content[0].text, "\\" + size + " ")
 
-def test_span_classes():
-    elem = Span(classes=['class1', 'class2'])
-    doc = Doc(Para(elem), metadata=metadata(), format='latex', api_version=(1, 17, 2))
-    span(elem, doc, doc.get_metadata()['pandoc-latex-fontsize'][0]['size'])
+    def test_span_classes(self):
+        elem = Span(classes=["class1", "class2"])
+        doc = Doc(Para(elem), metadata=self.metadata(), format="latex")
+        self.span(elem, doc, doc.get_metadata()["pandoc-latex-fontsize"][0]["size"])
 
-def test_span_attributes():
-    elem = Span(attributes={'latex-fontsize': 'LARGE'})
-    doc = Doc(Para(elem), format='latex', api_version=(1, 17, 2))
-    span(elem, doc, 'LARGE')
+    def test_span_attributes(self):
+        elem = Span(attributes={"latex-fontsize": "LARGE"})
+        doc = Doc(Para(elem), format="latex")
+        self.span(elem, doc, "LARGE")
 
-def div(elem, doc):
-    pandoc_latex_fontsize.main(doc)
-    opening(elem.content[0], RawBlock)
-    closing(elem.content[1], RawBlock)
+    def div(self, elem, doc):
+        pandoc_latex_fontsize.main(doc)
+        self.opening(elem.content[0], RawBlock)
+        self.closing(elem.content[1], RawBlock)
 
-def test_div_classes():
-    elem = Div(classes=['class1', 'class2'])
-    doc = Doc(elem, metadata=metadata(), format='latex', api_version=(1, 17, 2))
-    div(elem, doc)
+    def test_div_classes(self):
+        elem = Div(classes=["class1", "class2"])
+        doc = Doc(elem, metadata=self.metadata(), format="latex")
+        self.div(elem, doc)
 
-def test_div_attributes():
-    elem = Div(attributes={'latex-fontsize': 'LARGE'})
-    doc = Doc(elem, format='latex', api_version=(1, 17, 2))
-    div(elem, doc)
+    def test_div_attributes(self):
+        elem = Div(attributes={"latex-fontsize": "LARGE"})
+        doc = Doc(elem, format="latex")
+        self.div(elem, doc)
 
-def code(elem, doc):
-    pandoc_latex_fontsize.main(doc)
-    opening(doc.content[0].content[0], RawInline)
-    closing(doc.content[0].content[2], RawInline)
+    def code(self, elem, doc):
+        pandoc_latex_fontsize.main(doc)
+        self.opening(doc.content[0].content[0], RawInline)
+        self.closing(doc.content[0].content[2], RawInline)
 
-def test_code_classes():
-    elem = Code('', classes=['class1', 'class2'])
-    doc = Doc(Para(elem),  metadata=metadata(), format='latex', api_version=(1, 17, 2))
-    code(elem, doc)
+    def test_code_classes(self):
+        elem = Code("", classes=["class1", "class2"])
+        doc = Doc(Para(elem), metadata=self.metadata(), format="latex")
+        self.code(elem, doc)
 
-def test_code_attributes():
-    elem = Code('', attributes={'latex-fontsize': 'LARGE'})
-    doc = Doc(Para(elem),  format='latex', api_version=(1, 17, 2))
-    code(elem, doc)
+    def test_code_attributes(self):
+        elem = Code("", attributes={"latex-fontsize": "LARGE"})
+        doc = Doc(Para(elem), format="latex")
+        self.code(elem, doc)
 
-def codeblock(elem, doc):
-    pandoc_latex_fontsize.main(doc)
-    opening(doc.content[0], RawBlock)
-    closing(doc.content[2], RawBlock)
+    def codeblock(self, elem, doc):
+        pandoc_latex_fontsize.main(doc)
+        self.opening(doc.content[0], RawBlock)
+        self.closing(doc.content[2], RawBlock)
 
-def test_codeblock_classes():
-    elem = CodeBlock('', classes=['class1', 'class2'])
-    doc = Doc(elem, metadata=metadata(), format='latex', api_version=(1, 17, 2))
-    codeblock(elem, doc)
+    def test_codeblock_classes(self):
+        elem = CodeBlock("", classes=["class1", "class2"])
+        doc = Doc(elem, metadata=self.metadata(), format="latex")
+        self.codeblock(elem, doc)
 
-def test_codeblock_attributes():
-    elem = CodeBlock('', attributes={'latex-fontsize': 'LARGE'})
-    doc = Doc(elem, format='latex', api_version=(1, 17, 2))
-    codeblock(elem, doc)
+    def test_codeblock_attributes(self):
+        elem = CodeBlock("", attributes={"latex-fontsize": "LARGE"})
+        doc = Doc(elem, format="latex")
+        self.codeblock(elem, doc)
 
-def test_bad_size():
-    metadata = {
-        'pandoc-latex-fontsize': MetaList(
-            MetaMap(
-                size=MetaString('BADSIZE'),
-                classes=MetaList(MetaString('class1'), MetaString('class2'))
+    def test_bad_size(self):
+        metadata = {
+            "pandoc-latex-fontsize": MetaList(
+                MetaMap(
+                    size=MetaString("BADSIZE"),
+                    classes=MetaList(MetaString("class1"), MetaString("class2")),
+                )
             )
-        )
-    }
-    elem = Span(classes=['class1', 'class2'])
-    doc = Doc(Para(elem), metadata=metadata, format='latex', api_version=(1, 17, 2))
-    pandoc_latex_fontsize.main(doc)
-    assert isinstance(elem.content[0], RawInline)
-    assert elem.content[0].format == 'tex'
-    assert elem.content[0].text == '\\normalsize '
+        }
+        elem = Span(classes=["class1", "class2"])
+        doc = Doc(Para(elem), metadata=metadata, format="latex")
+        pandoc_latex_fontsize.main(doc)
+        self.assertIsInstance(elem.content[0], RawInline)
+        self.assertEqual(elem.content[0].format, "tex")
+        self.assertEqual(elem.content[0].text, "\\normalsize ")
 
-def test_missing_size():
-    metadata = {
-        'pandoc-latex-fontsize': MetaList(
-            MetaMap(
-                classes=MetaList(MetaString('class1'), MetaString('class2'))
+    def test_missing_size(self):
+        metadata = {
+            "pandoc-latex-fontsize": MetaList(
+                MetaMap(classes=MetaList(MetaString("class1"), MetaString("class2")))
             )
-        )
-    }
-    elem = Span(classes=['class1', 'class2'])
-    doc = Doc(Para(elem), metadata=metadata, format='latex', api_version=(1, 17, 2))
-    span(elem, doc, 'normalsize')
-
+        }
+        elem = Span(classes=["class1", "class2"])
+        doc = Doc(Para(elem), metadata=metadata, format="latex")
+        self.span(elem, doc, "normalsize")
