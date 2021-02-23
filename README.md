@@ -1,10 +1,10 @@
 # pandoc-latex-fontsize
-[![Build Status](https://img.shields.io/travis/chdemko/pandoc-latex-fontsize/master.svg)](https://travis-ci.org/chdemko/pandoc-latex-fontsize/branches)
-[![Coveralls](https://img.shields.io/coveralls/github/chdemko/pandoc-latex-fontsize/master.svg)](https://coveralls.io/github/chdemko/pandoc-latex-fontsize?branch=master)
+![Python package](https://github.com/chdemko/pandoc-latex-fontsize/workflows/Python%20package/badge.svg?branch=develop)
+[![Coveralls](https://img.shields.io/coveralls/github/chdemko/pandoc-latex-fontsize/develop.svg)](https://coveralls.io/github/chdemko/pandoc-latex-fontsize?branch=develop)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/chdemko/pandoc-latex-fontsize.svg)](https://scrutinizer-ci.com/g/chdemko/pandoc-latex-fontsize/)
 [![PyPI version](https://img.shields.io/pypi/v/pandoc-latex-fontsize.svg)](https://pypi.org/project/pandoc-latex-fontsize/)
 [![PyPI format](https://img.shields.io/pypi/format/pandoc-latex-fontsize.svg)](https://pypi.org/project/pandoc-latex-fontsize/)
-[![License](https://img.shields.io/pypi/l/pandoc-latex-fontsize.svg)](https://raw.githubusercontent.com/chdemko/pandoc-latex-fontsize/master/LICENSE)
+[![License](https://img.shields.io/pypi/l/pandoc-latex-fontsize.svg)](https://raw.githubusercontent.com/chdemko/pandoc-latex-fontsize/develop/LICENSE)
 [![Python version](https://img.shields.io/pypi/pyversions/pandoc-latex-fontsize.svg)](https://pypi.org/project/pandoc-latex-fontsize/)
 [![Development Status](https://img.shields.io/pypi/status/pandoc-latex-fontsize.svg)](https://pypi.org/project/pandoc-latex-fontsize/)
 
