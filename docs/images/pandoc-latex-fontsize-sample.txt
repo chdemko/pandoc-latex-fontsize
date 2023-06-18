@@ -1,0 +1,19 @@
+---
+pandoc-latex-fontsize:
+  - classes: [smallcontent]
+    size: tiny
+  - classes: [largecontent, important]
+    size: huge
+---
+
+::: smallcontent :::
+This is tiny content
+::::::::::::::::::::
+
+This is normal content, [small span]{latex-fontsize=small}
+and `huge code`{.largecontent .important}.
+
+~~~smallcontent
+And a piece of tiny code.
+~~~
+

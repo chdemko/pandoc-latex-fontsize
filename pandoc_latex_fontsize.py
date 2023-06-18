@@ -1,24 +1,33 @@
 #!/usr/bin/env python
 
 """
-Pandoc filter for changing font size in LaTeX
+Pandoc filter for changing font size in LaTeX.
 """
 
 from panflute import (  # type: ignore
-    debug,
-    run_filter,
-    Span,
-    Div,
-    RawInline,
-    RawBlock,
     Code,
     CodeBlock,
+    Div,
+    RawBlock,
+    RawInline,
+    Span,
+    debug,
+    run_filter,
 )
 
 
 def latex_code(size):
     """
-    Get LaTeX code for size
+    Get LaTeX code for size.
+
+    Arguments
+    ---------
+    size
+        The size name.
+
+    Returns
+    -------
+        LaTeX code for size.
     """
     return "\\" + size + " "
 
@@ -26,8 +35,17 @@ def latex_code(size):
 def get_correct_size(size):
     """
     Get correct size.
+
+    Arguments
+    ---------
+    size
+        The size name.
+
+    Returns
+    -------
+        The correct size.
     """
-    if size in [
+    if size in (
         "Huge",
         "huge",
         "LARGE",
@@ -38,7 +56,7 @@ def get_correct_size(size):
         "footnotesize",
         "scriptsize",
         "tiny",
-    ]:
+    ):
         return size
     debug(
         "[WARNING] pandoc-latex-fontsize: "
@@ -51,6 +69,17 @@ def get_correct_size(size):
 def add_latex(elem, latex):
     """
     Add LaTeX code to elem.
+
+    Arguments
+    ---------
+    elem
+        A pandoc element
+    latex
+        A LaTeX code
+
+    Returns
+    -------
+        A list of pandoc elements or None
     """
     # Is it a Span?
     if isinstance(elem, Span):
@@ -62,7 +91,7 @@ def add_latex(elem, latex):
         elem.content.append(RawBlock("}", "tex"))
 
     # Is it a Code?
-    elif isinstance(elem, Code):
+    elif isinstance(elem, Code):  # noqa: R505
         return [RawInline("{" + latex, "tex"), elem, RawInline("}", "tex")]
 
     # Is it a CodeBlock?
@@ -75,15 +104,25 @@ def add_latex(elem, latex):
 def fontsize(elem, doc):
     """
     Generate fontsize for elem.
+
+    Arguments
+    ---------
+    elem
+        A pandoc element
+    doc
+        The pandoc document
+
+    Returns
+    -------
+        A list of pandoc elements or None
     """
     # Is it in the right format and is it a Span, Div, Code or CodeBlock?
-    if doc.format in ["latex", "beamer"] and elem.tag in [
+    if doc.format in ("latex", "beamer") and elem.tag in (
         "Span",
         "Div",
         "Code",
         "CodeBlock",
-    ]:
-
+    ):
         # Is there a latex-fontsize attribute?
         if "latex-fontsize" in elem.attributes:
             return add_latex(
@@ -94,7 +133,6 @@ def fontsize(elem, doc):
 
         # Loop on all fontsize definition
         for definition in doc.defined:
-
             # Are the classes correct?
             if classes >= definition["classes"]:
                 return add_latex(elem, definition["latex"])
@@ -104,7 +142,12 @@ def fontsize(elem, doc):
 
 def prepare(doc):
     """
-    Prepare doc.
+    Prepare the doc.
+
+    Arguments
+    ---------
+    doc
+        The pandoc document
     """
     # Prepare the definitions
     doc.defined = []
@@ -113,10 +156,8 @@ def prepare(doc):
     meta = doc.get_metadata("pandoc-latex-fontsize")
 
     if isinstance(meta, list):
-
         # Loop on all definitions
         for definition in meta:
-
             # Verify the definition
             if (
                 isinstance(definition, dict)
@@ -129,6 +170,13 @@ def prepare(doc):
 def add_definition(defined, definition):
     """
     Add definition to doc.
+
+    Arguments
+    ---------
+    defined
+        A list of definition
+    definition
+        A new definition
     """
     # Get the classes
     classes = definition["classes"]
@@ -146,7 +194,16 @@ def add_definition(defined, definition):
 
 def main(doc=None):
     """
-    main function.
+    Convert the pandoc document.
+
+    Arguments
+    ---------
+    doc
+        The pandoc document.
+
+    Returns
+    -------
+        The modified document.
     """
     return run_filter(fontsize, prepare=prepare, doc=doc)
 
