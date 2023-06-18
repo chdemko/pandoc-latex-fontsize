@@ -9,6 +9,7 @@
 [![Python version](https://img.shields.io/pypi/pyversions/pandoc-latex-fontsize.svg)](https://pypi.org/project/pandoc-latex-fontsize/)
 [![Poetry version](https://img.shields.io/badge/poetry-1.2%20|%201.3%20|%201.4%20|%201.5-blue.svg)](https://python-poetry.org/)
 [![Pandoc version](https://img.shields.io/badge/pandoc-2.11%20|%202.12%20|%202.13%20|%202.14%20|%202.15%20|%202.16%20|%202.17%20|%202.18%20|%202.19%20|%203.0%20|%203.1-blue.svg)](https://pandoc.org/)[![Development Status](https://img.shields.io/pypi/status/pandoc-latex-fontsize.svg)](https://pypi.org/project/pandoc-latex-fontsize/)
+[![Docs](https://img.shields.io/readthedocs/pandoc-latex-fontsize.svg?logo=read-the-docs&logoColor=white)](http://pandoc-latex-fontsize.readthedocs.io/en/latest/)
 
 *pandoc-latex-fontsize* is a [pandoc] filter for modifying font size to `Code`, `CodeBlock`, `Span`, and `Div` that have speficied classes or `latex-fontsize` attribute.
 
