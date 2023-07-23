@@ -2,7 +2,7 @@ Installation
 ============
 
 [![Python package](https://github.com/chdemko/pandoc-latex-fontsize/workflows/Python%20package/badge.svg?branch=develop)](https://github.com/chdemko/pandoc-latex-fontsize/actions/workflows/python-package.yml)
-[![Coveralls](https://img.shields.io/coveralls/github/chdemko/pandoc-latex-fontsize/develop.svg)](https://coveralls.io/github/chdemko/pandoc-latex-fontsize?branch=develop)
+[![Coveralls](https://img.shields.io/coveralls/github/chdemko/pandoc-latex-fontsize/develop.svg?logo=Codecov&logoColor=white)](https://coveralls.io/github/chdemko/pandoc-latex-fontsize?branch=develop)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/chdemko/pandoc-latex-fontsize.svg?logo=scrutinizer)](https://scrutinizer-ci.com/g/chdemko/pandoc-latex-fontsize/)
 [![Code Climate](https://codeclimate.com/github/chdemko/pandoc-latex-fontsize/badges/gpa.svg)](https://codeclimate.com/github/chdemko/pandoc-latex-fontsize/)
 [![CodeFactor](https://img.shields.io/codefactor/grade/github/chdemko/pandoc-latex-fontsize/develop.svg?logo=codefactor)](https://www.codefactor.io/repository/github/chdemko/pandoc-latex-fontsize)
