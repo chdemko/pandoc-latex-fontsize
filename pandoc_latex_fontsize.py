@@ -4,7 +4,7 @@
 Pandoc filter for changing font size in LaTeX.
 """
 
-from panflute import (  # type: ignore
+from panflute import (
     Code,
     CodeBlock,
     Div,
