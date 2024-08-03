@@ -9,9 +9,11 @@ $ pandoc --filter pandoc-latex-fontsize
 Explanation
 -----------
 
-In the metadata block, specific set of classes can be defined to specify the font size for `span`, `code`, `div` and `codeblock` elements.
+In the metadata block, specific set of classes can be defined to specify
+the font size for `span`, `code`, `div` and `codeblock` elements.
 
-The metadata block add information using the `pandoc-latex-fontsize` entry by a list of definitions:
+The metadata block add information using the `pandoc-latex-fontsize` entry
+by a list of definitions:
 
 ~~~
 pandoc-latex-fontsize:
@@ -23,8 +25,10 @@ pandoc-latex-fontsize:
 
 The metadata block above is used to set the fontsize:
 
-* to `tiny` for `span`, `code`, `div` and `codeblock` elements that have the `smallcontent` class;
-* to `huge` for `span`, `code`, `div` and `codeblock` elements that have the `largecontent` and `important` classes;
+* to `tiny` for `span`, `code`, `div` and `codeblock` elements that have
+  the `smallcontent` class;
+* to `huge` for `span`, `code`, `div` and `codeblock` elements that have
+  the `largecontent` and `important` classes;
 
 The font size specified must be either:
 
@@ -41,7 +45,8 @@ The font size specified must be either:
 
 which are the name of LaTeX font sizes.
 
-It's also possible to set a specific LaTeX font size using the `latex-fontsize` attribute.
+It's also possible to set a specific LaTeX font size using the
+`latex-fontsize` attribute.
 
 Example
 -------
