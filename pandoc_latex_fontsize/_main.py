@@ -4,10 +4,14 @@
 Pandoc filter for changing font size in LaTeX.
 """
 
+from typing import Any
+
 from panflute import (
     Code,
     CodeBlock,
     Div,
+    Doc,
+    Element,
     RawBlock,
     RawInline,
     Span,
@@ -16,7 +20,7 @@ from panflute import (
 )
 
 
-def latex_code(size):
+def latex_code(size: str) -> str:
     """
     Get LaTeX code for size.
 
@@ -27,12 +31,13 @@ def latex_code(size):
 
     Returns
     -------
+    str
         LaTeX code for size.
     """
     return "\\" + size + " "
 
 
-def get_correct_size(size):
+def get_correct_size(size: str) -> str:
     """
     Get correct size.
 
@@ -43,6 +48,7 @@ def get_correct_size(size):
 
     Returns
     -------
+    str
         The correct size.
     """
     if size in (
@@ -66,7 +72,7 @@ def get_correct_size(size):
     return "normalsize"
 
 
-def add_latex(elem, latex):
+def add_latex(elem: Element, latex: str) -> list[Element] | None:
     """
     Add LaTeX code to elem.
 
@@ -79,6 +85,7 @@ def add_latex(elem, latex):
 
     Returns
     -------
+    list[Element] | None
         A list of pandoc elements or None
     """
     # Is it a Span?
@@ -101,7 +108,7 @@ def add_latex(elem, latex):
     return None
 
 
-def fontsize(elem, doc):
+def fontsize(elem: Element, doc: Doc) -> list[Element] | None:
     """
     Generate fontsize for elem.
 
@@ -114,6 +121,7 @@ def fontsize(elem, doc):
 
     Returns
     -------
+    list[Element] | None
         A list of pandoc elements or None
     """
     # Is it in the right format and is it a Span, Div, Code or CodeBlock?
@@ -140,7 +148,7 @@ def fontsize(elem, doc):
     return None
 
 
-def prepare(doc):
+def prepare(doc: Doc) -> None:
     """
     Prepare the doc.
 
@@ -167,7 +175,7 @@ def prepare(doc):
                 add_definition(doc.defined, definition)
 
 
-def add_definition(defined, definition):
+def add_definition(defined: list[dict[str, Any]], definition: dict[str, Any]) -> None:
     """
     Add definition to doc.
 
@@ -192,7 +200,7 @@ def add_definition(defined, definition):
     defined.append({"classes": set(classes), "latex": latex_code(size)})
 
 
-def main(doc=None):
+def main(doc: Doc | None = None) -> Doc:
     """
     Convert the pandoc document.
 
@@ -203,6 +211,7 @@ def main(doc=None):
 
     Returns
     -------
+    Doc
         The modified document.
     """
     return run_filter(fontsize, prepare=prepare, doc=doc)
