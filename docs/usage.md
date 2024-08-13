@@ -2,8 +2,8 @@
 
 To apply the filter, use the following option with pandoc:
 
-~~~shell
-$ pandoc --filter pandoc-latex-fontsize
+~~~{prompt} bash
+pandoc --filter pandoc-latex-fontsize
 ~~~
 
 Explanation
