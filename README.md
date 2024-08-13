@@ -19,7 +19,6 @@ Installation
 [![Pandoc version](https://img.shields.io/badge/pandoc-2.11%20|%202.12%20|%202.13%20|%202.14%20|%202.15%20|%202.16%20|%202.17%20|%202.18%20|%202.19%20|%203.0%20|%203.1%20|%203.2%20|%203.3-blue.svg?logo=markdown)](https://pandoc.org/)
 [![Latest release](https://img.shields.io/github/release-date/chdemko/pandoc-latex-fontsize.svg?logo=github)](https://github.com/chdemko/pandoc-latex-fontsize/releases)
 [![Last commit](https://img.shields.io/github/last-commit/chdemko/pandoc-latex-fontsize/develop?logo=github)](https://github.com/chdemko/pandoc-latex-fontsize/commit/develop/)
-(https://raw.githubusercontent.com/chdemko/pandoc-latex-fontsize/develop/LICENSE)
 [![Repo Size](https://img.shields.io/github/repo-size/chdemko/pandoc-latex-fontsize.svg?logo=github)](http://pandoc-latex-fontsize.readthedocs.io/en/latest/)
 [![Code Size](https://img.shields.io/github/languages/code-size/chdemko/pandoc-latex-fontsize.svg?logo=github)](http://pandoc-latex-fontsize.readthedocs.io/en/latest/)
 [![Source Rank](https://img.shields.io/librariesio/sourcerank/pypi/pandoc-latex-fontsize.svg?logo=libraries.io&logoColor=white)](https://libraries.io/pypi/pandoc-latex-fontsize)
