@@ -2,7 +2,6 @@ Installation
 ============
 
 [![Python package](https://img.shields.io/github/actions/workflow/status/chdemko/pandoc-latex-fontsize/python-package.yml?logo=github&branch=develop)](https://github.com/chdemko/pandoc-latex-fontsize/actions/workflows/python-package.yml)
-[![Python package](https://github.com/chdemko/pandoc-latex-fontsize/workflows/Python%20package/badge.svg?branch=develop)](https://github.com/chdemko/pandoc-latex-fontsize/actions/workflows/python-package.yml)
 [![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://pypi.org/project/black/)
